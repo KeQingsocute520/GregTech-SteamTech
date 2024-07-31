@@ -1,0 +1,35 @@
+metaitem.cover.electric_motor.ulv.name=Electric Motor (ULV)
+metaitem.cover.electric_piston.ulv.name=Electric Piston (ULV)
+metaitem.cover.electric_pump.ulv.name=Electric Pump (ULV)
+metaitem.cover.electric_pump.ulv.tooltip=Functions as a §fCover Plate§7 to transfer §ffluids§7 at a specific rate. /n§bTransfer Rate: §f32 L/t§7
+metaitem.cover.conveyor_module.ulv.name=Conveyor Module (ULV)
+metaitem.cover.conveyor_module.ulv.tooltip=Functions as a §fCover Plate§7 to transfer §fitems§7 at a specific rate. /n§bTransfer Rate: §f4 items/s§7
+metaitem.cover.robot_arm.ulv.name=Robot Arm (ULV)
+metaitem.cover.robot_arm.ulv.tooltip=Functions as a §fCover Plate§7 to limit the quantity of §fitems§7. /n§bTransfer Rate: §f4 items/s§7
+metaitem.cover.emitter.ulv.name=Emitter (ULV)
+metaitem.cover.sensor.ulv.name=Sensor (ULV)
+metaitem.cover.field_generator.ulv.name=Field Generator (ULV)
+
+gtsteam.machine.tank_valve.bronze.name=Bronze Tank Value
+gregtech.machine.tank.bronze.name=Bronze Tank
+
+gtsteam.machine.steam_ore_washer.name=Steam Ore Washer
+gtsteam.machine.steam_hammer.name=Steam Forge Hammer
+gtsteam.machine.steam_extractor.name=Large Steam Extractor
+gtsteam.machine.steam_compressor.name=Large Steam Compressor
+gtsteam.machine.steam_blast_furnace.name=Large Blast Furnace
+
+gtsteam.machine.ak.tooltip.1=Consumes lava to increase heat, starting to work once a certain temperature range is reached.
+gtsteam.machine.ak.tooltip.2=The higher the temperature, the higher the machine's efficiency.
+gtsteam.machine.ak.tooltip.3=Temperature will drop to room temperature when not in use.
+
+gtsteam.machine.alloy_klin.name=Alloy Kiln
+gtsteam.multiblock.ak.amount=Temperature: %sK (Max Temperature %s K)
+gtsteam.multiblock.ak.level=Efficiency Boost: %s
+gtsteam.multiblock.ak.amount=Lava Reserve: %s
+
+gtsteam.machine.large_primitive_blast_furnace.name=Large Primitive Blast Furnace
+gtsteam.machine.large_primitive_blast_furnace.tooltip.1=Better than a basic blast furnace
+gtsteam.machine.large_primitive_blast_furnace.tooltip.2=With auxiliary structures, each additional §6Auxiliary Blast Furnace§7 significantly reduces operation time.
+gtsteam.machine.large_primitive_blast_furnace.tooltip.3=Right-click the arrow button in the §rMultiblock Structure Hint§7 to view auxiliary structure construction methods.
+gtsteam.machine.large_primitive_blast_furnace.auxiliary_furnace_number=Number of Auxiliary Blast Furnaces: %s
