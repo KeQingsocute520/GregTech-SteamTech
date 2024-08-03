@@ -90,7 +90,7 @@ public class MetaTileEntityAlloykiln extends NoEnergyMultiblockController {
                         .or(abilities(MultiblockAbility.IMPORT_FLUIDS).setMinGlobalLimited(1))
                         .or(abilities(MultiblockAbility.EXPORT_ITEMS).setMinGlobalLimited(1)))
                 .where('#', any())
-                .where('&', air().or(SNOW_PREDICATE)) // this won't stay in the structure, and will be broken while
+                .where('&', air())
                 // running
                 .where('Y', selfPredicate())
                 .build();
@@ -166,44 +166,6 @@ public class MetaTileEntityAlloykiln extends NoEnergyMultiblockController {
     }
 
     @Override
-    public void update() {
-        super.update();
-
-        if (this.isActive()) {
-            if (getWorld().isRemote) {
-                VanillaParticleEffects.PBF_SMOKE.runEffect(this);
-            } else {
-                damageEntitiesAndBreakSnow();
-            }
-        }
-    }
-
-    private void damageEntitiesAndBreakSnow() {
-        BlockPos middlePos = this.getPos();
-        middlePos = middlePos.offset(getFrontFacing().getOpposite());
-        this.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(middlePos))
-                .forEach(entity -> entity.attackEntityFrom(DamageSource.LAVA, 3.0f));
-
-        if (getOffsetTimer() % 10 == 0) {
-            IBlockState state = getWorld().getBlockState(middlePos);
-            GTUtility.tryBreakSnow(getWorld(), middlePos, state, true);
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void randomDisplayTick() {
-        if (this.isActive()) {
-            VanillaParticleEffects.defaultFrontEffect(this, 0.3F, EnumParticleTypes.SMOKE_LARGE,
-                    EnumParticleTypes.FLAME);
-            if (ConfigHolder.machines.machineSounds && GTValues.RNG.nextDouble() < 0.1) {
-                BlockPos pos = getPos();
-                getWorld().playSound(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F,
-                        SoundEvents.BLOCK_FURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
-            }
-        }
-    }
-    @Override
     public void writeInitialSyncData(PacketBuffer buf) {
         super.writeInitialSyncData(buf);
         buf.writeInt(this.temp);
@@ -250,11 +212,8 @@ public class MetaTileEntityAlloykiln extends NoEnergyMultiblockController {
 
             }
         }
-
         public AKLogic(NoEnergyMultiblockController tileEntity) {
             super(tileEntity, tileEntity.recipeMap);
         }
-
-
     }
 }

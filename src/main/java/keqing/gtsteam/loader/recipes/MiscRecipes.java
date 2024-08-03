@@ -70,8 +70,8 @@ public class MiscRecipes {
 
         ModHandler.addShapedRecipe(true, "alloy_kiln", ALLOY_KILN.getStackForm(),
                 "PIP", "IwI", "PIP",
-                'P', MetaBlocks.METAL_CASING.getItemVariant(BlockMetalCasing.MetalCasingType.COKE_BRICKS),
-                'I', new UnificationEntry(OrePrefix.plate, Bronze));
+                'P', MetaBlocks.METAL_CASING.getItemVariant(BlockMetalCasing.MetalCasingType.PRIMITIVE_BRICKS),
+                'I', new UnificationEntry(OrePrefix.plate, Potin));
 
         ModHandler.addShapedRecipe(true, "bronze_multiblock_tank", BRONZE_TANK.getStackForm(), " R ",
                 "hCw", " R ", 'R', new UnificationEntry(OrePrefix.ring, Tin), 'C',
@@ -85,7 +85,7 @@ public class MiscRecipes {
         //  Large Primitive Blast Furnace
         ModHandler.addShapedRecipe(true, "large_primitive_blast_furnace", LARGE_PRIMITIVE_BLAST_FURNACE.getStackForm(),
                 "PMP", "MFM", "PMP",
-                'P', new UnificationEntry(plate, Bronze),
+                'P', new UnificationEntry(plate, Potin),
                 'F', new UnificationEntry(frameGt, Steel),
                 'M', PRIMITIVE_BLAST_FURNACE.getStackForm());
 
@@ -95,7 +95,7 @@ public class MiscRecipes {
                 'C', new UnificationEntry(pipeTinyFluid, Bronze),
                 'W', new UnificationEntry(wireGtSingle, Lead),
                 'M', new UnificationEntry(stick, IronMagnetic),
-                'R', new UnificationEntry(stick, WroughtIron));
+                'R', new UnificationEntry(stick, Potin));
 
         //  ULV
         ModHandler.addShapedRecipe(true, "conveyor_module.ulv", CONVEYOR_MODULE_ULV.getStackForm(),
@@ -107,7 +107,7 @@ public class MiscRecipes {
         //  ULV
         ModHandler.addShapedRecipe(true, "electric_piston.ulv", ELECTRIC_PISTON_ULV.getStackForm(),
                 "PPP", "CRR", "CMG",
-                'P', new UnificationEntry(plate, WroughtIron),
+                'P', new UnificationEntry(plate, Potin),
                 'C', new UnificationEntry(pipeTinyFluid, Bronze),
                 'R', new UnificationEntry(stick, WroughtIron),
                 'M', ELECTRIC_MOTOR_ULV.getStackForm(),
@@ -118,13 +118,13 @@ public class MiscRecipes {
                 "CCC", "MRM", "PXR",
                 'C', new UnificationEntry(pipeTinyFluid, Bronze),
                 'M', ELECTRIC_MOTOR_ULV.getStackForm(),
-                'R', new UnificationEntry(stick, WroughtIron),
+                'R', new UnificationEntry(stick, Potin),
                 'P', ELECTRIC_PISTON_ULV.getStackForm(),
                 'X', new UnificationEntry(circuit, MarkerMaterials.Tier.ULV));
 
         ModHandler.addShapedRecipe(true, "electric_pump.ulv", ELECTRIC_PUMP_ULV.getStackForm(),
                 "SXR", "dPw", "RMC",
-                'S', new UnificationEntry(screw, WroughtIron),
+                'S', new UnificationEntry(screw, Potin),
                 'X', new UnificationEntry(rotor, Iron),
                 'P', new UnificationEntry(pipeNormalFluid, Copper),
                 'R', "wool",
@@ -144,7 +144,7 @@ public class MiscRecipes {
         //  ULV
         ModHandler.addShapedRecipe(true, "sensor.ulv", SENSOR_ULV.getStackForm(),
                 "P G", "PR ", "XPP",
-                'P', new UnificationEntry(plate, WroughtIron),
+                'P', new UnificationEntry(plate, Potin),
                 'R', new UnificationEntry(stick, TinAlloy),
                 'G', new UnificationEntry(gem, Sapphire),
                 'X', new UnificationEntry(circuit, MarkerMaterials.Tier.ULV));
@@ -154,7 +154,7 @@ public class MiscRecipes {
         ModHandler.addShapedRecipe(true, "field_generator.ulv", FIELD_GENERATOR_ULV.getStackForm(),
                 "WPW", "XGX", "WPW",
                 'W', new UnificationEntry(pipeLargeFluid, Lead),
-                'P', new UnificationEntry(plate, WroughtIron),
+                'P', new UnificationEntry(plate, Potin),
                 'G', new UnificationEntry(gem, Ruby),
                 'X', new UnificationEntry(circuit, MarkerMaterials.Tier.ULV));
     }
