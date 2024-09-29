@@ -33,30 +33,32 @@ import java.util.List;
 import static gregtech.client.renderer.texture.Textures.BRONZE_PLATED_BRICKS;
 import static gregtech.client.renderer.texture.Textures.SOLID_STEEL_CASING;
 
-public class MetaTileEntitySteamCompressor extends RecipeMapSteamMultiblockController{
+public class MetaTileEntitySteamCentrifuge extends RecipeMapSteamMultiblockController{
 
     private static final int PARALLEL_LIMIT = 8;
 
-    public MetaTileEntitySteamCompressor(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, RecipeMaps.COMPRESSOR_RECIPES, CONVERSION_RATE);
+    public MetaTileEntitySteamCentrifuge(ResourceLocation metaTileEntityId) {
+        super(metaTileEntityId, RecipeMaps.CENTRIFUGE_RECIPES, CONVERSION_RATE);
         this.recipeMapWorkable = new SteamMultiWorkable(this, CONVERSION_RATE);
         this.recipeMapWorkable.setParallelLimit(PARALLEL_LIMIT);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity metaTileEntityHolder) {
-        return new MetaTileEntitySteamCompressor(metaTileEntityId);
+        return new MetaTileEntitySteamCentrifuge(metaTileEntityId);
     }
 
     @Override
     protected BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
-                .aisle("XXX", "XXX", "XXX")
-                .aisle("XXX", "X#X", "XXX")
-                .aisle("XXX", "XSX", "XXX")
+                .aisle(" XXX ", " XXX ", "  X  ", "     ")
+                .aisle("XXXXX", "XX XX", "     ", "  X  ")
+                .aisle("XXXXX", "X X X", "X X X", " XXX ")
+                .aisle("XXXXX", "XX XX", "     ", "  X  ")
+                .aisle(" XXX ", " XSX ", "  X  ", "     ")
                 .where('S', selfPredicate())
-                .where('X', states(getCasingState()).setMinGlobalLimited(20).or(autoAbilities()))
-                .where('#', air())
+                .where('X', states(getCasingState()).setMinGlobalLimited(43).or(autoAbilities()))
+                .where(' ', any())
                 .build();
     }
 
@@ -75,7 +77,7 @@ public class MetaTileEntitySteamCompressor extends RecipeMapSteamMultiblockContr
     @SideOnly(Side.CLIENT)
     @Override
     protected ICubeRenderer getFrontOverlay() {
-        return Textures.COMPRESSOR_OVERLAY;
+        return Textures.CENTRIFUGE_OVERLAY;
     }
 
     @Override

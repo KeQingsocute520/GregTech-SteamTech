@@ -51,12 +51,13 @@ public class MetaTileEntitySteamExtractor extends RecipeMapSteamMultiblockContro
     @Override
     protected BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
+                .aisle("XXX", "XXX", "XXX")
                 .aisle("XXX", "#X#", "XXX")
                 .aisle("XXX", "#X#", "XXX")
-                .aisle("XXX", "#S#", "XXX")
+                .aisle("XXX", "XSX", "XXX")
                 .where('S', selfPredicate())
                 .where('X', states(getCasingState()).setMinGlobalLimited(16).or(autoAbilities()))
-                .where('#', air())
+                .where('#', any())
                 .build();
     }
     

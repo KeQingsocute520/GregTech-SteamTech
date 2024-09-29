@@ -60,6 +60,20 @@ public class MiscRecipes {
                 'F', STEAM_HAMMER_BRONZE.getStackForm(),
                 'C', MetaBlocks.METAL_CASING.getItemVariant(BRONZE_BRICKS));
 
+        ModHandler.addShapedRecipe(true, "steam_centrifuge", STEAM_CENTRIFUGE.getStackForm(),
+                "GGG", "CFC", "PPP",
+                'G', ELECTRIC_PUMP_ULV,
+                'P', ELECTRIC_PISTON_ULV,
+                'F', STEAM_MACERATOR_BRONZE.getStackForm(),
+                'C', MetaBlocks.METAL_CASING.getItemVariant(BRONZE_BRICKS));
+
+        ModHandler.addShapedRecipe(true, "steam_mixer", STEAM_MIXER.getStackForm(),
+                "GGG", "CFC", "PPP",
+                'G', ELECTRIC_MOTOR_ULV,
+                'P', ELECTRIC_PISTON_ULV,
+                'F', STEAM_MACERATOR_BRONZE.getStackForm(),
+                'C', MetaBlocks.METAL_CASING.getItemVariant(BRONZE_BRICKS));
+
         ModHandler.addShapedRecipe(true, "steam_blast_furance", STEAM_BLAST_FURNACE.getStackForm(),
                 "GGG", "CFC", "PPP",
                 'G', CONVEYOR_MODULE_ULV,
@@ -83,11 +97,11 @@ public class MiscRecipes {
                 MetaBlocks.METAL_CASING.getItemVariant(BRONZE_BRICKS));
 
         //  Large Primitive Blast Furnace
-        ModHandler.addShapedRecipe(true, "large_primitive_blast_furnace", LARGE_PRIMITIVE_BLAST_FURNACE.getStackForm(),
+        ModHandler.addShapedRecipe(true, "large_primitive_water_pump", WATER_PUMP.getStackForm(),
                 "PMP", "MFM", "PMP",
                 'P', new UnificationEntry(plate, Potin),
                 'F', new UnificationEntry(frameGt, Steel),
-                'M', PRIMITIVE_BLAST_FURNACE.getStackForm());
+                'M', PRIMITIVE_WATER_PUMP.getStackForm());
 
         //  ULV
         ModHandler.addShapedRecipe(true, "electric_motor.ulv", ELECTRIC_MOTOR_ULV.getStackForm(),

@@ -1,6 +1,5 @@
 package keqing.gtsteam.common.metatileentities.multi.steam;
 
-import gregtech.api.GTValues;
 import gregtech.api.capability.impl.SteamMultiWorkable;
 import gregtech.api.metatileentity.MetaTileEntity;
 import gregtech.api.metatileentity.interfaces.IGregTechTileEntity;
@@ -17,13 +16,8 @@ import gregtech.common.blocks.BlockMetalCasing;
 import gregtech.common.blocks.MetaBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -33,30 +27,32 @@ import java.util.List;
 import static gregtech.client.renderer.texture.Textures.BRONZE_PLATED_BRICKS;
 import static gregtech.client.renderer.texture.Textures.SOLID_STEEL_CASING;
 
-public class MetaTileEntitySteamCompressor extends RecipeMapSteamMultiblockController{
+public class MetaTileEntitySteamMixer extends RecipeMapSteamMultiblockController{
 
     private static final int PARALLEL_LIMIT = 8;
 
-    public MetaTileEntitySteamCompressor(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, RecipeMaps.COMPRESSOR_RECIPES, CONVERSION_RATE);
+    public MetaTileEntitySteamMixer(ResourceLocation metaTileEntityId) {
+        super(metaTileEntityId, RecipeMaps.CENTRIFUGE_RECIPES, CONVERSION_RATE);
         this.recipeMapWorkable = new SteamMultiWorkable(this, CONVERSION_RATE);
         this.recipeMapWorkable.setParallelLimit(PARALLEL_LIMIT);
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(IGregTechTileEntity metaTileEntityHolder) {
-        return new MetaTileEntitySteamCompressor(metaTileEntityId);
+        return new MetaTileEntitySteamMixer(metaTileEntityId);
     }
 
     @Override
     protected BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
-                .aisle("XXX", "XXX", "XXX")
-                .aisle("XXX", "X#X", "XXX")
-                .aisle("XXX", "XSX", "XXX")
+                .aisle(" XXX ", " XXX ", " XXX ")
+                .aisle("XXXXX", "X   X", "XXXXX")
+                .aisle("XXXXX", "X X X", "XXXXX")
+                .aisle("XXXXX", "X   X", "XXXXX")
+                .aisle(" XXX ", " XSX ", " XXX ")
                 .where('S', selfPredicate())
-                .where('X', states(getCasingState()).setMinGlobalLimited(20).or(autoAbilities()))
-                .where('#', air())
+                .where('X', states(getCasingState()).setMinGlobalLimited(43).or(autoAbilities()))
+                .where(' ', any())
                 .build();
     }
 
@@ -75,7 +71,7 @@ public class MetaTileEntitySteamCompressor extends RecipeMapSteamMultiblockContr
     @SideOnly(Side.CLIENT)
     @Override
     protected ICubeRenderer getFrontOverlay() {
-        return Textures.COMPRESSOR_OVERLAY;
+        return Textures.MIXER_OVERLAY;
     }
 
     @Override

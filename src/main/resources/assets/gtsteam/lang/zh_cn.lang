@@ -15,6 +15,8 @@ gregtech.machine.tank.bronze.name=青铜多方块储罐
 
 gtsteam.machine.steam_ore_washer.name=蒸汽洗矿厂
 gtsteam.machine.steam_hammer.name=蒸汽锻造锤
+gtsteam.machine.steam_centrifuge.name=蒸汽离心机
+gtsteam.machine.steam_mixer.name=蒸汽搅拌机
 gtsteam.machine.steam_extractor.name=大型蒸汽提取机
 gtsteam.machine.steam_compressor.name=大型蒸汽压缩机
 gtsteam.machine.steam_blast_furnace.name=大型蒸汽高炉
@@ -28,8 +30,6 @@ gtsteam.multiblock.ak.amount=温度：%sK(最高温度 %s K)
 gtsteam.multiblock.ak.level=效率提升：%s
 gtsteam.multiblock.ak.amount=岩浆储量：%s
 
-gtsteam.machine.large_primitive_blast_furnace.name=大型炼钢窑
-gtsteam.machine.large_primitive_blast_furnace.tooltip.1=比土高炉更好
-gtsteam.machine.large_primitive_blast_furnace.tooltip.2=带有附属结构，每建造1座§6附属高炉§7，运行时间均会大幅缩减。
-gtsteam.machine.large_primitive_blast_furnace.tooltip.3=在§r多方块结构提示§7中鼠标右击箭头按钮查看附属结构建造方式。
-gtsteam.machine.large_primitive_blast_furnace.auxiliary_furnace_number=附属高炉数：%s
+
+gtsteam.machine.primitive_water_pump.name=大型原始水泵
+gregtech.multiblock.water_pump.description=大型原始水泵是一台蒸汽时代的多方块机器。当它的控制器方块处于河流生物群系，且高度介于 Y = 64 与 Y = 80（含）之间时将每秒收集一次100mb的水。它可以使用 ULV、LV 输出仓或水泵输出仓。
