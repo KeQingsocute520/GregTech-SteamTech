@@ -1,3 +1,7 @@
+recipemap.alloy_klin.name=合金窑
+recipemap.steam_ore_washer.name=蒸汽洗矿厂
+recipemap.steam_blast_furnace.name=大型蒸汽高炉
+
 metaitem.cover.electric_motor.ulv.name=电动马达（ULV）
 metaitem.cover.electric_piston.ulv.name=电力活塞（ULV）
 metaitem.cover.electric_pump.ulv.name=电动泵（ULV）
@@ -26,10 +30,9 @@ gtsteam.machine.ak.tooltip.2=温度越高，机器效率越高。
 gtsteam.machine.ak.tooltip.3=不工作时温度会降低至室温.
 
 gtsteam.machine.alloy_klin.name=合金窑
-gtsteam.multiblock.ak.amount=温度：%sK(最高温度 %s K)
+gtsteam.multiblock.ak.temp=温度：%sK(最高温度 %s K)
 gtsteam.multiblock.ak.level=效率提升：%s
 gtsteam.multiblock.ak.amount=岩浆储量：%s
-
 
 gtsteam.machine.primitive_water_pump.name=大型原始水泵
 gregtech.multiblock.water_pump.description=大型原始水泵是一台蒸汽时代的多方块机器。当它的控制器方块处于河流生物群系，且高度介于 Y = 64 与 Y = 80（含）之间时将每秒收集一次100mb的水。它可以使用 ULV、LV 输出仓或水泵输出仓。

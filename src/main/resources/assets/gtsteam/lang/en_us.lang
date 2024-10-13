@@ -1,3 +1,7 @@
+recipemap.alloy_klin.name=Alloy Kiln
+recipemap.steam_ore_washer.name=Steam Ore Washer
+recipemap.steam_blast_furnace.name=Large Steam Blast Furnace
+
 metaitem.cover.electric_motor.ulv.name=Electric Motor (ULV)
 metaitem.cover.electric_piston.ulv.name=Electric Piston (ULV)
 metaitem.cover.electric_pump.ulv.name=Electric Pump (ULV)
@@ -26,7 +30,7 @@ gtsteam.machine.ak.tooltip.2=The higher the temperature, the higher the machine'
 gtsteam.machine.ak.tooltip.3=Temperature will drop to room temperature when not in use.
 
 gtsteam.machine.alloy_klin.name=Alloy Kiln
-gtsteam.multiblock.ak.amount=Temperature: %sK (Max Temperature %s K)
+gtsteam.multiblock.ak.temp=Temperature: %sK (Max Temperature %s K)
 gtsteam.multiblock.ak.level=Efficiency Boost: %s
 gtsteam.multiblock.ak.amount=Lava Reserve: %s
 

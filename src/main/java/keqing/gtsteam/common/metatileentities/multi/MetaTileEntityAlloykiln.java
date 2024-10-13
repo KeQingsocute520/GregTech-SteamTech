@@ -120,7 +120,7 @@ public class MetaTileEntityAlloykiln extends NoEnergyMultiblockController {
             if (getInputFluidInventory() != null) {
                 FluidStack STACK = getInputFluidInventory().drain(Lava.getFluid(Integer.MAX_VALUE), false);
                 int liquidOxygenAmount = STACK == null ? 0 : STACK.amount;
-                textList.add(new TextComponentTranslation("gtsteam.multiblock.ak.amount", TextFormattingUtil.formatNumbers((liquidOxygenAmount))));
+                textList.add(new TextComponentTranslation("gtsteam.multiblock.ak.temp", TextFormattingUtil.formatNumbers((liquidOxygenAmount))));
             }
 
         }
@@ -131,7 +131,7 @@ public class MetaTileEntityAlloykiln extends NoEnergyMultiblockController {
         super.addWarningText(textList);
         if (isStructureFormed()) {
             if (temp<=50000) {
-                textList.add(new TextComponentTranslation("gtqtcore.multiblock.ak.temp"));
+                textList.add(new TextComponentTranslation("gtsteam.multiblock.ak.temp"));
             }
         }
     }

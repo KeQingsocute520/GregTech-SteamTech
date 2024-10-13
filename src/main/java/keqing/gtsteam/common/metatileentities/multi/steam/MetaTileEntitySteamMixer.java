@@ -32,7 +32,7 @@ public class MetaTileEntitySteamMixer extends RecipeMapSteamMultiblockController
     private static final int PARALLEL_LIMIT = 8;
 
     public MetaTileEntitySteamMixer(ResourceLocation metaTileEntityId) {
-        super(metaTileEntityId, RecipeMaps.CENTRIFUGE_RECIPES, CONVERSION_RATE);
+        super(metaTileEntityId, RecipeMaps.MIXER_RECIPES, CONVERSION_RATE);
         this.recipeMapWorkable = new SteamMultiWorkable(this, CONVERSION_RATE);
         this.recipeMapWorkable.setParallelLimit(PARALLEL_LIMIT);
     }
