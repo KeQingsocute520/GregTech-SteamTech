@@ -22,6 +22,8 @@ import gregtech.common.metatileentities.MetaTileEntities;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fluids.FluidTank;
@@ -63,19 +65,30 @@ public class MetaTileEntityPrimitiveWaterPump extends MultiblockControllerBase i
         }
     }
 
-    private int getAmount() {
-        Biome biome = getWorld().getBiome(getPos());
-        Set<BiomeDictionary.Type> biomeTypes = BiomeDictionary.getTypes(biome);
-        if (getPos().getY() < 40 || getPos().getY() > 80) {
-            return -1; // Disabled
-        }
-
-        if (!biomeTypes.contains(BiomeDictionary.Type.RIVER) && !biomeTypes.contains(BiomeDictionary.Type.SWAMP)) {
-            return -1; // Disabled
-        }
-
-        return 250;
+   private int getAmount() {
+    BlockPos pos = getPos();
+    if (pos == null) {
+        return -1; // Disabled
     }
+
+    World world = getWorld();
+    if (world == null) {
+        return -1; // Disabled
+    }
+
+    Biome biome = world.getBiome(pos);
+
+    Set<BiomeDictionary.Type> biomeTypes = BiomeDictionary.getTypes(biome);
+    if (pos.getY() < 40 || pos.getY() > 80) {
+        return -1; // Disabled
+    }
+
+    if (!biomeTypes.contains(BiomeDictionary.Type.RIVER) && !biomeTypes.contains(BiomeDictionary.Type.SWAMP)) {
+        return -1; // Disabled
+    }
+
+    return 250;
+}
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
@@ -106,10 +119,10 @@ public class MetaTileEntityPrimitiveWaterPump extends MultiblockControllerBase i
 
     private void initializeAbilities() {
         List<IFluidTank> tanks = getAbilities(MultiblockAbility.PUMP_FLUID_HATCH);
-        if (tanks == null || tanks.size() == 0) {
+        if (tanks == null || tanks.isEmpty()) {
             tanks = getAbilities(MultiblockAbility.EXPORT_FLUIDS);
         }
-        if (tanks == null || tanks.size() == 0) {
+        if (tanks == null || tanks.isEmpty()) {
             this.hatchModifier = 1;
         } else {
             this.hatchModifier = tanks.get(0).getCapacity() == 8000 ? 2 : 4;
@@ -124,13 +137,11 @@ public class MetaTileEntityPrimitiveWaterPump extends MultiblockControllerBase i
     @Override
     protected BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
-                .aisle("       ", "       ", "       ", "       ", "       ", "       ")
-                .aisle(" A   A ", " A   A ", " BBBBB ", " A   A ", " A   A ", " BBBBB ")
-                .aisle("       ", "       ", " BBBBB ", "  CCC  ", "  CCC  ", " BBBBB ")
-                .aisle("       ", "       ", " BBBBB ", "  CCC  ", "  CCC  ", " BBBBB ")
-                .aisle("       ", "       ", " BBBBB ", "  CSC  ", "  CCC  ", " BBBBB ")
-                .aisle(" A   A ", " A   A ", " BBBBB ", " A   A ", " A   A ", " BBBBB ")
-                .aisle("       ", "       ", "       ", "       ", "       ", "       ")
+                .aisle("A   A", "A   A", "BBBBB", "A   A", "A   A", "BBBBB")
+                .aisle("     ", "     ", "BBBBB", " CCC ", " CCC ", "BBBBB")
+                .aisle("     ", "     ", "BBBBB", " CCC ", " CCC ", "BBBBB")
+                .aisle("     ", "     ", "BBBBB", " CSC ", " CCC ", "BBBBB")
+                .aisle("A   A", "A   A", "BBBBB", "A   A", "A   A", "BBBBB")
                 .where('S', selfPredicate())
                 .where('A', frames(Materials.TreatedWood))
                 .where('B', states(MetaBlocks.PLANKS.getState(BlockGregPlanks.BlockType.TREATED_PLANK)))
