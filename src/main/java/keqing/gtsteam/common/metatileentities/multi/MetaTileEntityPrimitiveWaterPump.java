@@ -14,6 +14,7 @@ import gregtech.api.pattern.BlockPattern;
 import gregtech.api.pattern.FactoryBlockPattern;
 import gregtech.api.pattern.PatternMatchContext;
 import gregtech.api.unification.material.Materials;
+import gregtech.api.util.LocalizationUtils;
 import gregtech.client.renderer.ICubeRenderer;
 import gregtech.client.renderer.texture.Textures;
 import gregtech.common.blocks.BlockMetalCasing;
@@ -24,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.fluids.FluidTank;
@@ -31,6 +33,8 @@ import net.minecraftforge.fluids.IFluidTank;
 import gregtech.common.blocks.wood.BlockGregPlanks;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -38,10 +42,10 @@ import java.util.stream.Stream;
 import static gregtech.api.unification.material.Materials.Water;
 
 public class MetaTileEntityPrimitiveWaterPump extends MultiblockControllerBase implements IPrimitivePump {
-
-    private IFluidTank mudTank;
+    private IFluidTank waterTank;
     private int biomeModifier = 0;
     private int hatchModifier = 0;
+
 
     public MetaTileEntityPrimitiveWaterPump(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
@@ -53,42 +57,48 @@ public class MetaTileEntityPrimitiveWaterPump extends MultiblockControllerBase i
         return new MetaTileEntityPrimitiveWaterPump(metaTileEntityId);
     }
 
-    @Override
     public void update() {
         super.update();
-        if (!getWorld().isRemote && getOffsetTimer() % 20 == 0 && isStructureFormed()) {
-            if (biomeModifier == 0) {
-                biomeModifier = getAmount();
-            } else if (biomeModifier > 0) {
-                mudTank.fill(Water.getFluid(getFluidProduction()), true);
+        if (!this.getWorld().isRemote && this.getOffsetTimer() % 20L == 0L && this.isStructureFormed()) {
+            if (this.biomeModifier == 0) {
+                this.biomeModifier = this.getAmount();
+            } else if (this.biomeModifier > 0) {
+                this.waterTank.fill(Materials.Water.getFluid(this.getFluidProduction()), true);
             }
         }
+
     }
 
-   private int getAmount() {
-    BlockPos pos = getPos();
-    if (pos == null) {
-        return -1; // Disabled
+    private int getAmount() {
+        WorldProvider provider = this.getWorld().provider;
+        if (!provider.isNether() && !provider.doesWaterVaporize()) {
+            Biome biome = this.getWorld().getBiome(this.getPos());
+            Set<BiomeDictionary.Type> biomeTypes = BiomeDictionary.getTypes(biome);
+            if (biomeTypes.contains(BiomeDictionary.Type.NETHER)) {
+                return -1;
+            } else if (biomeTypes.contains(BiomeDictionary.Type.WATER)) {
+                return 1000;
+            } else if (!biomeTypes.contains(BiomeDictionary.Type.SWAMP) && !biomeTypes.contains(BiomeDictionary.Type.WET)) {
+                if (biomeTypes.contains(BiomeDictionary.Type.JUNGLE)) {
+                    return 350;
+                } else if (biomeTypes.contains(BiomeDictionary.Type.SNOWY)) {
+                    return 300;
+                } else if (!biomeTypes.contains(BiomeDictionary.Type.PLAINS) && !biomeTypes.contains(BiomeDictionary.Type.FOREST)) {
+                    if (biomeTypes.contains(BiomeDictionary.Type.COLD)) {
+                        return 175;
+                    } else {
+                        return biomeTypes.contains(BiomeDictionary.Type.BEACH) ? 170 : 100;
+                    }
+                } else {
+                    return 250;
+                }
+            } else {
+                return 800;
+            }
+        } else {
+            return -1;
+        }
     }
-
-    World world = getWorld();
-    if (world == null) {
-        return -1; // Disabled
-    }
-
-    Biome biome = world.getBiome(pos);
-
-    Set<BiomeDictionary.Type> biomeTypes = BiomeDictionary.getTypes(biome);
-    if (pos.getY() < 40 || pos.getY() > 80) {
-        return -1; // Disabled
-    }
-
-    if (!biomeTypes.contains(BiomeDictionary.Type.RIVER) && !biomeTypes.contains(BiomeDictionary.Type.SWAMP)) {
-        return -1; // Disabled
-    }
-
-    return 250;
-}
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
@@ -118,22 +128,20 @@ public class MetaTileEntityPrimitiveWaterPump extends MultiblockControllerBase i
     }
 
     private void initializeAbilities() {
-        List<IFluidTank> tanks = getAbilities(MultiblockAbility.PUMP_FLUID_HATCH);
-        if (tanks == null || tanks.isEmpty()) {
-            tanks = getAbilities(MultiblockAbility.EXPORT_FLUIDS);
-        }
-        if (tanks == null || tanks.isEmpty()) {
+        List<IFluidTank> tanks = this.getAbilities(MultiblockAbility.PUMP_FLUID_HATCH);
+        if (tanks != null && !tanks.isEmpty()) {
             this.hatchModifier = 1;
         } else {
+            tanks = this.getAbilities(MultiblockAbility.EXPORT_FLUIDS);
             this.hatchModifier = tanks.get(0).getCapacity() == 8000 ? 2 : 4;
-            this.mudTank = tanks.get(0);
         }
+
+        this.waterTank = tanks.get(0);
     }
 
     private void resetTileAbilities() {
-        this.mudTank = new FluidTank(0);
+        this.waterTank = new FluidTank(0);
     }
-
     @Override
     protected BlockPattern createStructurePattern() {
         return FactoryBlockPattern.start()
@@ -168,14 +176,24 @@ public class MetaTileEntityPrimitiveWaterPump extends MultiblockControllerBase i
         this.getFrontOverlay().renderOrientedState(renderState, translation, pipeline, getFrontFacing(), true, true);
     }
 
-    @Override
     public String[] getDescription() {
-        return Stream.of(
-                new String[]{I18n.format("gregtech.multiblock.water_pump.description")}).toArray(String[]::new);
+        List<String> list = new ArrayList<>();
+        list.add(I18n.format("gregtech.multiblock.primitive_water_pump.description"));
+        Collections.addAll(list, LocalizationUtils.formatLines("gregtech.multiblock.primitive_water_pump.extra1"));
+        Collections.addAll(list, LocalizationUtils.formatLines("gregtech.multiblock.primitive_water_pump.extra2"));
+        return list.toArray(new String[0]);
     }
 
-    @Override
+    private boolean isRainingInBiome() {
+        World world = this.getWorld();
+        return world.isRaining() && world.getBiome(this.getPos()).canRain();
+    }
+
     public int getFluidProduction() {
-        return biomeModifier * hatchModifier*100;
+        return (int)((double)(this.biomeModifier * this.hatchModifier) * (this.isRainingInBiome() ? 1.5 : 1.0))*4;
+    }
+
+    public boolean allowsExtendedFacing() {
+        return false;
     }
 }
